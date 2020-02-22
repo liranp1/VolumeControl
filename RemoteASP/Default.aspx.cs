@@ -9,30 +9,6 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : Page
 {
-    [DllImport("user32", CharSet = CharSet.Auto)]
-    static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
-
-    [DllImport("kernel32")]
-    static extern IntPtr GetConsoleWindow();
-
-    const UInt32 WM_APPCOMMAND = 0x0319;
-    const UInt32 APPCOMMAND_VOLUME_DOWN = 9;
-    const UInt32 APPCOMMAND_VOLUME_UP = 10;
-
-    static void IncreaseVolume()
-    {
-        var cw = GetConsoleWindow();
-        SendMessage(cw, WM_APPCOMMAND, cw, new IntPtr(APPCOMMAND_VOLUME_UP << 16));
-        Console.WriteLine("16");
-    }
-
-    static void DecreaseVolume()
-    {
-        var cw = GetConsoleWindow();
-        SendMessage(cw, WM_APPCOMMAND, cw, new IntPtr(APPCOMMAND_VOLUME_DOWN << 16));
-        Console.WriteLine("-16");
-    }
-
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -51,10 +27,6 @@ public partial class _Default : Page
     {
         try
         {
-            // Create a TcpClient.
-            // Note, for this client to work you need to have a TcpServer 
-            // connected to the same address as specified by the server, port
-            // combination.
             Int32 port = 13000;
             TcpClient client = new TcpClient(server, port);
 
@@ -69,11 +41,6 @@ public partial class _Default : Page
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
 
-            Console.WriteLine("Sent: {0}", message);
-
-            // Receive the TcpServer.response.
-
-            // Buffer to store the response bytes.
             data = new Byte[256];
 
             // String to store the response ASCII representation.
@@ -82,7 +49,6 @@ public partial class _Default : Page
             // Read the first batch of the TcpServer response bytes.
             Int32 bytes = stream.Read(data, 0, data.Length);
             responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-            Console.WriteLine("Received: {0}", responseData);
 
             // Close everything.
             stream.Close();

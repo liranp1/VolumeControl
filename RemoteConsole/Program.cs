@@ -99,6 +99,8 @@ namespace RemoteConsole
                                 IncreaseVolume();
                                 break;
 
+                                //Add computer shutdown
+
                         }
    
                     }

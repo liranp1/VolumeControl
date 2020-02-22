@@ -17,7 +17,7 @@ namespace RemoteControl
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new Service1()
+                new RemoteControlService()
             };
             ServiceBase.Run(ServicesToRun);
         }

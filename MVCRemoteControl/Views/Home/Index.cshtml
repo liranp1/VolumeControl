@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Remote Control";
+}
+
+
+
+<script type="text/javascript">
+    @*$(function () {
+        $("#btnUp").click(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AjaxPostCall")',
+                data: { volume: 16 },
+                dataType: "json",
+                success: function (response) { alert(response); },
+                error: function (response) { alert('error'); }
+            });
+        });
+    });*@
+
+
+    function VolumeChange(value) {
+      
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AjaxPostCall")',
+                data: { volume: value },
+                dataType: "json",
+                success: function (response) {  },
+                error: function (response) { alert('error'); }
+            });
+
+    }
+</script>
+
+@*<input type="button" id="btnUp" value="+" />
+<input type="button" id="btnDown" value="-" />*@
+<br />
+<input type="range" name="rangeInput" min="0" max="100" onchange="VolumeChange(this.value);">

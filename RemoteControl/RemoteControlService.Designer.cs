@@ -1,6 +1,6 @@
 ﻿namespace RemoteControl
 {
-    partial class Service1
+    partial class RemoteControlService
     {
         /// <summary> 
         /// Required designer variable.

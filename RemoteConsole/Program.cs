@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace RemoteConsole
 {
@@ -27,20 +28,23 @@ namespace RemoteConsole
         {
             var cw = GetConsoleWindow();
             SendMessage(cw, WM_APPCOMMAND, cw, new IntPtr(APPCOMMAND_VOLUME_UP << 16));
-            Console.WriteLine("Increase Volume");
+            //Console.WriteLine("Increase Volume");
+            ShowBalloon("Remote Control", "Increase Volume");
         }
 
         static void DecreaseVolume()
         {
             var cw = GetConsoleWindow();
             SendMessage(cw, WM_APPCOMMAND, cw, new IntPtr(APPCOMMAND_VOLUME_DOWN << 16));
-            Console.WriteLine("Decrease Volume");
+            //Console.WriteLine("Decrease Volume");
+            ShowBalloon("Remote Control", "Decrease Volume");
         }
         static void MuteVolume()
         {
             var cw = GetConsoleWindow();
             SendMessage(cw, WM_APPCOMMAND, cw, (IntPtr)APPCOMMAND_VOLUME_MUTE);
-            Console.WriteLine("Mute");
+            //Console.WriteLine("Mute");
+            ShowBalloon("Remote Control", "Mute");
         }
 
 
@@ -67,12 +71,17 @@ namespace RemoteConsole
                 // Enter the listening loop.
                 while (true)
                 {
-                    Console.Write("Waiting for a connection... ");
+                    //Console.Write("Waiting for a connection... ");
+                    ShowBalloon("Remote Control", "Waiting for a connection...");
+                    //NotifyIcon ballon = new NotifyIcon();
+                    //ballon.Icon = SystemIcons.Application;//or any icon you like
+                    //ballon.ShowBalloonTip(1000, "Balloon title", "Balloon text", ToolTipIcon.None);
+
 
                     // Perform a blocking call to accept requests.
                     // You could also user server.AcceptSocket() here.
                     TcpClient client = server.AcceptTcpClient();
-                    Console.WriteLine("Connected!");
+                    //Console.WriteLine("Connected!");
 
                     data = null;
 
@@ -129,10 +138,29 @@ namespace RemoteConsole
                 server.Stop();
             }
 
-
             Console.WriteLine("\nHit enter to continue...");
             Console.Read();
         }
 
+        private static void ShowBalloon(string title, string body)
+        {
+            NotifyIcon notifyIcon = new NotifyIcon();
+            notifyIcon.Visible = true;
+
+
+            if (title != null)
+            {
+                notifyIcon.Icon = SystemIcons.Application;
+                notifyIcon.BalloonTipTitle = title;
+            }
+
+            if (body != null)
+            {
+                notifyIcon.Icon = SystemIcons.Application;
+                notifyIcon.BalloonTipText = body;
+            }
+
+            notifyIcon.ShowBalloonTip(30000);
+        }
     }
 }

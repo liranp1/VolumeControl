@@ -23,6 +23,11 @@ public partial class _Default : Page
     {
         Connect("127.0.0.1", "1");
     }
+    protected void btnMute_Click(object sender, EventArgs e)
+    {
+        Connect("127.0.0.1", "3");
+
+    }
     private void Connect(String server, String message)
     {
         try
@@ -63,4 +68,6 @@ public partial class _Default : Page
             Console.WriteLine("SocketException: {0}", e);
         }
     }
+
+
 }

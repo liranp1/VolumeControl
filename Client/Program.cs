@@ -14,7 +14,7 @@ namespace Client
         {
             for (int i = 0; i < 99; i++)
             {
-                Connect("127.0.0.1", "2");
+                Connect("127.0.0.1", "3");
                 Thread.Sleep(1000);
             }
 

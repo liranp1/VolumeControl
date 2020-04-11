@@ -21,19 +21,26 @@ namespace RemoteConsole
         const UInt32 WM_APPCOMMAND = 0x0319;
         const UInt32 APPCOMMAND_VOLUME_DOWN = 9;
         const UInt32 APPCOMMAND_VOLUME_UP = 10;
+        private const int APPCOMMAND_VOLUME_MUTE = 0x80000;
 
         static void IncreaseVolume()
         {
             var cw = GetConsoleWindow();
             SendMessage(cw, WM_APPCOMMAND, cw, new IntPtr(APPCOMMAND_VOLUME_UP << 16));
-            Console.WriteLine("16");
+            Console.WriteLine("Increase Volume");
         }
 
         static void DecreaseVolume()
         {
             var cw = GetConsoleWindow();
             SendMessage(cw, WM_APPCOMMAND, cw, new IntPtr(APPCOMMAND_VOLUME_DOWN << 16));
-            Console.WriteLine("-16");
+            Console.WriteLine("Decrease Volume");
+        }
+        static void MuteVolume()
+        {
+            var cw = GetConsoleWindow();
+            SendMessage(cw, WM_APPCOMMAND, cw, (IntPtr)APPCOMMAND_VOLUME_MUTE);
+            Console.WriteLine("Mute");
         }
 
 
@@ -98,11 +105,14 @@ namespace RemoteConsole
                             case "2":
                                 IncreaseVolume();
                                 break;
+                            case "3":
+                                MuteVolume();
+                                break;
 
                                 //Add computer shutdown
 
                         }
-   
+
                     }
 
                     // Shutdown and end connection
